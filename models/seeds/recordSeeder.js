@@ -2,25 +2,25 @@ const db = require('../../config/mongoose')
 const Record = require('../record')
 const data = [
   {
-    name: '午餐',
+    name: '午餐-樓下麵店',
     category: '餐飲食品',
     date: '2021-07-16',
     amount: 60
   },
   {
-    name: '晚餐',
+    name: '晚餐-響食天堂',
     category: '餐飲食品',
     date: '2021-07-16',
     amount: 60
   },
   {
-    name: '捷運',
+    name: '捷運-板南線',
     category: '交通出行',
     date: '2021-07-16',
     amount: 120
   },
   {
-    name: '電影:黑寡婦',
+    name: '電影:鋼鐵擂台',
     category: '休閒娛樂',
     date: '2021-07-15',
     amount: 220

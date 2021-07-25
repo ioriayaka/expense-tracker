@@ -1,19 +1,27 @@
 // 載入 express 並建構應用程式伺服器
 const express = require('express')
 const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
+const routes = require('./routes/index')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 require('./config/mongoose')
-
-
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({
+  defaultLayout: 'main', extname: '.hbs',
+    helpers: {
+      toDate: function (date) {
+        return new Date(date.getTime() - (date.getTimezoneOffset() * 60 * 1000))
+          .toISOString()
+          .split("T")[0]
+      }
+    }
+ }))
 app.set('view engine', 'hbs')
-// 設定首頁路由
-app.get('/', (req, res) => {
-  res.render('index')
-})
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
+app.use(routes)
 
-// 設定 port 3000
 app.listen(port, () => {
   console.log(`App is running on http://localhost:${port}`)
 })
