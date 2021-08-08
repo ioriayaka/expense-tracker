@@ -12,8 +12,14 @@
 
 <body>
   <!-- As a heading -->
-  <nav class="navbar navbar-light bg-light d-flex justify-content-center">
-        <a class="navbar-brand h1" href="/">家庭記帳本</a>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand h1" href="/">
+      {{#if isAuthenticated}}{{ user.name}}的{{/if}}家庭記帳本</a>
+    {{#if isAuthenticated}}
+    <a href="/users/logout" class="btn btn-outline-secondary">Logout</a>
+    {{else}}
+    <a href="/users/login" class="btn btn-outline-secondary">Login</a>
+    {{/if}}
   </nav>
   {{{ body }}}
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
