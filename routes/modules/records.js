@@ -16,33 +16,37 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, category, date, amount } = req.body
-  if (!name || !category || !date || !amount) {
+  const userId = req.user._id
+  const { name, category, date, amount, merchant } = req.body
+  if (!name || !category || !date || !amount || !merchant) {
     return res.redirect('/records/new')
   }
-  return Record.create({ name, category, date, amount })
+  return Record.create({ name, category, date, amount, merchant, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.error(error))
 })
 
 // 編輯 update
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findById({ _id, userId })
     .lean()
     .then(record => res.render('edit', { record, categories }))
     .catch(error => console.log(error))
 })
-
+//修改支出
 router.put('/:id', (req, res) => {
-  const id = req.params.id
-  const { name, category, date, amount } = req.body
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  const { name, category, date, amount, merchant } = req.body
+  return Record.findById({ _id, userId })
     .then(record => {
       record.name = name
       record.category = category
       record.date = date
       record.amount = amount
+      record.merchant = merchant
       return record.save()
     })
     .then(() => res.redirect('/'))
@@ -51,8 +55,9 @@ router.put('/:id', (req, res) => {
 
 // delete record
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findById({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
