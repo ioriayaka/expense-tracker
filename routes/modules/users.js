@@ -1,9 +1,11 @@
 const express = require('express')
+const router = express.Router()
 // 引用 passport
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const User = require('../../models/user')
-const router = express.Router()
+
+
 router.get('/login', (req, res) => {
   res.render('login')
 })
@@ -29,23 +31,17 @@ router.post('/register', (req, res) => {
     return res.render('register', {
       errors,
       name,
-      email,
-      password,
-      confirmPassword,
-      errors
+      email
     })
   }
   // 檢查使用者是否已經註冊
-  User.findOne({ email })
-    .then(user => {
+  User.findOne({ email }).then(user => {
       // 如果已經註冊：退回原本畫面
       if (user) {
         errors.push({ message: '這個 Email 已經註冊過了。' })
         res.render('register', {
           name,
           email,
-          password,
-          confirmPassword,
           errors
         })
       }
