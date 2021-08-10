@@ -62,5 +62,5 @@ The Express server is running on http://localhost:3000
 ```
 # 預設使用者 SEED_USER
 
->* email: user1@example.com
+>* email: root@example.com
 >* password: 12345678
