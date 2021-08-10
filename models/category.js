@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const categorySchema = new Schema({
-  name: {
+  categoryName: {
     type: String, 
     required: true 
   },
@@ -9,7 +9,7 @@ const categorySchema = new Schema({
     type: String,
     required: true
   },
-  icon: {
+  categoryIcon: {
     type: String,
     required: true
   },

@@ -1,14 +1,35 @@
 <div class="container mt-5">
   <div class="d-flex flex-column">
-    <div class="d-flex category-section justify-content-center">
+    <div class="d-flex category-section justify-content-center mt-5">
       <form action="/" method="GET" class="d-flex col-8 col-md-5 col-lg-5">
-        <select class="custom-select" name="categorySelect" onchange="submit()">
-          <option selected>類別</option>
-          {{#each categories }}
-          <option value="{{this.name}}">{{this.name}}</option>
-          {{/each}}
-        </select>
+        <div class="input-group filter-month mb-3 container-fluid">
+          <select class="custom-select" name="categorySelect" onchange="submit()">
+            <option value="" selected>類別</option>
+            {{#each categories }}
+            <option value="{{this.categoryName}}" {{#is this.categoryName ../selectedCategory }} selected {{/is}}>
+              {{this.categoryName}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="input-group filter-month mb-3 container-fluid">
+          <select class="form-control ml-2" id="record-month" name="monthSelect" onchange="submit()">
+            <option value="">所有月份</option>
+            <option value="1" {{#is selectedMonth '1' }} selected {{/is}}>一月</option>
+            <option value="2" {{#is selectedMonth '2' }} selected {{/is}}>二月</option>
+            <option value="3" {{#is selectedMonth '3' }} selected {{/is}}>三月</option>
+            <option value="4" {{#is selectedMonth '4' }} selected {{/is}}>四月</option>
+            <option value="5" {{#is selectedMonth '5' }} selected {{/is}}>五月</option>
+            <option value="6" {{#is selectedMonth '6' }} selected {{/is}}>六月</option>
+            <option value="7" {{#is selectedMonth '7' }} selected {{/is}}>七月</option>
+            <option value="8" {{#is selectedMonth '8' }} selected {{/is}}>八月</option>
+            <option value="9" {{#is selectedMonth '9' }} selected {{/is}}>九月</option>
+            <option value="10" {{#is selectedMonth '10' }} selected {{/is}}>十月</option>
+            <option value="11" {{#is selectedMonth '11' }} selected {{/is}}>十一月</option>
+            <option value="12" {{#is selectedMonth '12' }} selected {{/is}}>十二月</option>
+          </select>
+        </div>
       </form>
+      <a href="/" class="btn btn-outline-secondary btn active mt-0" role="button" aria-pressed="true">清除條件</a>
     </div>
     <div class="d-flex amount-section justify-content-center mt-3">
       <div class="d-flex totalAmount">總金額:</div>
@@ -16,7 +37,12 @@
         <p class="display-2 text-warning">{{totalAmount}}</p>
       </div>
     </div>
-
+    <!-- display flash message -->
+    {{#if success_messages}}
+    <div class="alert alert-success" role="alert">
+      {{ success_messages }}
+    </div>
+    {{/if}}
     <!-- expense item -->
     <ul class="list-group" id="data-panel">
       <div class="justify-content-center">
@@ -27,17 +53,17 @@
             <div class="col-auto  mr-auto">
               <div>{{ this.name }}</div>
               <div>{{ toDate this.date }}</div>
+              <span><i class="fas fa-shopping-cart"></i>{{ this.merchant }}</span>
             </div>
             <div class="col col-auto text-end">{{this.amount}}</div>
-            <div class="col col-auto d-flex flex-row">
+            <div class="col col-auto d-flex flex-row mt-5">
               <a href="./records/{{ this._id }}/edit">
                 <button type="button" class="btn btn-primary">編輯</button>
               </a>
-              <form action="./records/{{ this._id }}?_method=DELETE" method="POST">
-                <button type="submit" class="btn btn-danger">
-                  刪除
-                </button>
-              </form>
+              <button type="button" class="btn btn-outline-danger" id="modal-button" data-toggle="modal"
+                data-target="#deleteModal" data-id="{{ this._id }}">
+                刪除
+              </button>
             </div>
           </div>
           {{/each}}
@@ -49,3 +75,30 @@
           </div>
           </form>
         </div>
+      </div>
+  </div>
+</div>
+
+<!-- delete check modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">刪除支出項目</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        您確定要刪除該支出項目嗎？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
+        <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"
+          id="modal-delete-button">
+          <button class="btn btn-outline-danger" type="submit">刪除</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

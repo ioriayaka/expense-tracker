@@ -10,12 +10,16 @@
           <label for="name">名稱*</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" id="name" name="name" value="{{record.name}}" required>
+            <div class="valid-feedback">Good!</div>
+            <div class="invalid-feedback">This field is required!</div>
           </div>
         </div>
         <div class="row mb-3">
           <label for="date">日期*</label>
           <div class="col-sm-6">
             <input type="date" class="form-control" id="date" name="date" value="{{ toDate record.date}}" required>
+            <div class="valid-feedback">Good!</div>
+            <div class="invalid-feedback">This field is required!</div>
           </div>
         </div>
         <div class="row mb-3">
@@ -23,19 +27,32 @@
           <div class="col-sm-6">
             <select class="form-select" name="category" id="category" aria-label="Default select"
               value="{{record.category}}" required>
-              {{#each categories}} 
-              <option selected>{{this.name}}</option>
+              {{#each categories}}
+              <option selected>{{this.categoryName}}</option>
               {{/each}}
             </select>
+            <div class="valid-feedback">Good!</div>
+            <div class="invalid-feedback">This field is required!</div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="amount">店家*</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="merchant" name="merchant" value="{{record.merchant}}" required>
+            <div class="valid-feedback">Good!</div>
+            <div class="invalid-feedback">This field is required!</div>
           </div>
         </div>
         <div class="row mb-3">
           <label for="amount">金額*</label>
           <div class="col-sm-6">
             <input type="number" class="form-control" id="amount" name="amount" value="{{record.amount}}" required>
+            <div class="valid-feedback">Good!</div>
+            <div class="invalid-feedback">This field is required!</div>
           </div>
         </div>
         <button id="submit-btn" type="submit" class="btn btn-warning mt-3">送出</button>
+        <a href="/" class="btn btn-outline-secondary active mt-3" role="button" aria-pressed="true">回到首頁</a>
       </form>
     </div>
   </div>

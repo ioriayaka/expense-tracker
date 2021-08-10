@@ -1,47 +1,60 @@
-<div class="container my-5">
-  <div class="row">
-    <div class="col-12 col-md-8 mx-auto">
-      <form action="/records" method="POST" id="form" novalidate>
-        <div class="row mb-3">
-          <div class="col-auto">*必填欄位</div>
-          <div class="col-auto">請輸入你的支出明細</div>
+<div class="container mt-5">
+  <form action="/records" method="POST" class="d-flex flex-column align-items-center" id="form" novalidate>
+    <div class="col-sm-8">
+      <div class="title row">
+        <p class="col-5">*必填欄位</p>
+        <h3 class="col-7">請輸入你的支出</h3>
+      </div>
+      <div class="form-group row">
+        <label for="name" class="col-form-label col-sm-2">名稱*:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name" placeholder="" name="name" required>
+          <div class="valid-feedback">Good!</div>
+          <div class="invalid-feedback">This field is required!</div>
         </div>
-        <div class="row mb-3">
-          <label for="name">名稱*</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" id="name" name="name" required>
-          </div>
+      </div>
+      <div class="form-group row">
+        <label for="date" class="col-sm-2 col-form-label">日期*:</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="date" placeholder="" name="date" required>
+          <div class="valid-feedback">Good!</div>
+          <div class="invalid-feedback">This field is required!</div>
         </div>
-        <div class="row mb-3">
-          <label for="date">日期*</label>
-          <div class="col-sm-6">
-            <input type="date" class="form-control" id="date" name="date" required>
-          </div>
+      </div>
+      <div class="form-group row">
+        <label for="category" class="col-sm-2 col-form-label">類別*:</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="category" placeholder="類別" name="category" required>
+            <option value="" selected>Select</option>
+            {{#each categories}}
+            <option value="{{this.categoryName}}">{{this.categoryName}}</option>
+            {{/each}}
+          </select>
+          <div class="valid-feedback">Good!</div>
+          <div class="invalid-feedback">This field is required!</div>
         </div>
-        <div class="row mb-3">
-          <label for="category">類別*</label>
-          <div class="col-sm-6">
-            <select class="form-select" name="category" id="category" aria-label="Default select" required>
-              {{#each categories}}
-              <option>{{this.name}}</option>
-              {{/each}}
-            </select>
-          </div>
+      </div>
+      <div class="form-group row">
+        <label for="merchant" class="col-form-label col-sm-2">店家*:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="merchant" placeholder="" name="merchant" required>
+          <div class="valid-feedback">Good!</div>
+          <div class="invalid-feedback">This field is required!</div>
         </div>
-        <div class="row mb-3">
-          <label for="merchant">店家*:</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" id="merchant" placeholder="" name="merchant" required>
-          </div>
+      </div>
+      <div class="form-group row">
+        <label for="amount" class="col-sm-2 col-form-label">金額*:</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="amount" placeholder="" name="amount" required>
+          <div class="valid-feedback">Good!</div>
+          <div class="invalid-feedback">This field is required!</div>
         </div>
-        <div class="row mb-3">
-          <label for="amount">金額*</label>
-          <div class="col-sm-6">
-            <input type="number" class="form-control" id="amount" name="amount" required>
-          </div>
-        </div>
-        <button id="submit-btn" type="submit" class="btn btn-warning mt-3">新增支出</button>
-      </form>
+      </div>
+      <!--button-->
+      <div class="d-flex justify-content-center button-section mt-5">
+        <button type="submit" id="submit-btn" class="btn btn-outline-dark btn-lg">新增支出</button>
+        <a href="/" class="btn btn-outline-secondary btn-lg active mx-2" role="button" aria-pressed="true">回到首頁</a>
+      </div>
     </div>
-  </div>
+  </form>
 </div>

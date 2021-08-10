@@ -2,29 +2,29 @@ const db = require('../../config/mongoose')
 const Category = require('../category')
 const category = [
   {
-    name: '家居物業',
+    categoryName: '家居物業',
     en_name: 'home',
-    icon: 'fas fa-home'
+    categoryIcon: 'fas fa-home'
   },
   {
-    name: '交通出行',
+    categoryName: '交通出行',
     en_name: 'transportation',
-    icon: 'fas fa-shuttle-van'
+    categoryIcon: 'fas fa-shuttle-van'
   },
   {
-    name: '休閒娛樂',
+    categoryName: '休閒娛樂',
     en_name: 'entertainment',
-    icon: 'fas fa-grin-beam'
+    categoryIcon: 'fas fa-grin-beam'
   },
   {
-    name: '餐飲食品',
+    categoryName: '餐飲食品',
     en_name: 'food',
-    icon: 'fas fa-utensils'
+    categoryIcon: 'fas fa-utensils'
   },
   {
-    name: '其他',
+    categoryName: '其他',
     en_name: 'others',
-    icon: 'fas fa-pen'
+    categoryIcon: 'fas fa-pen'
   }
 ]
 db.once('open', () => {
