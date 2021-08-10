@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const db = require('../../config/mongoose')
 const Record = require('../record')
+const User = require('../user')
 const data = [
   {
     name: '午餐',
@@ -55,12 +56,16 @@ db.once('open', () => {
       email: SEED_USER.email,
       password: hash
     }))
-  Record.create(data)
-  .then(() => {
-    console.log('Add Record Seeder done!')
-    return db.close()
-  })
-  .then(() => {
-    console.log('databaes connectoin close...')
-  })
+    .then(user => {
+      const userId = user._id
+      data.forEach(item => item['userId'] = userId)
+      Record.create(data)
+        .then(() => {
+          console.log('Add Record Seeder done!')
+          return db.close()
+        })
+    })
+    .then(() => {
+      console.log('databaes connectoin close...')
+    })
 })
